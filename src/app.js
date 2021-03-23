@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 
 //Import Routes
-const authRoute = require('./routes/auth')
+const api = require('./routes/api')
 
 
 //Routes
-app.use('/api/user', authRoute)
+app.use('/api', api)
 
 //Server mounting
 const port = 3000
