@@ -7,11 +7,6 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-       value : {
-           type : dataTypes.STRING(2),
-           allowNull : true,
-           defaultValue : null
-       },
        name_es : {
            type : dataTypes.STRING,
            allowNull : true,
@@ -28,5 +23,13 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const BodyShapeType = sequelize.define(alias, cols, config)
+
+    BodyShapeType.associate = (models) => {
+        BodyShapeType.hasMany(models.UserBodyShape, {
+            as : 'users',
+            foreignKey : 'body_shape_type_id'
+        })
+    }
+
     return BodyShapeType
 }

@@ -49,5 +49,31 @@ module.exports = function (sequelize, dataTypes) {
         paranoid: true
     }
     const User = sequelize.define(alias, cols, config)
+    User.associate = (models) => {
+        User.belongsTo(models.Gender, {
+            as: 'gender',
+            foreignKey: 'gender_id'
+        })
+        User.hasMany(models.UserCategoryFitPreference, {
+            as: 'categories_fit_preferences',
+            foreignKey: 'user_id'
+        })
+        User.hasMany(models.UserBodyShape, {
+            as: 'body_shapes',
+            foreignKey: 'user_id'
+        })
+        User.hasMany(models.UserFeedback, {
+            as: 'feedbacks',
+            foreignKey: 'user_id'
+        })
+        User.belongsTo(models.BraSize, {
+            as: 'bra_size',
+            foreignKey: 'bra_size_id'
+        }),
+        User.hasMany(models.Survey, {
+            as :'surveys',
+            foreignKey : 'user_id'
+        })
+    }
     return User
 }

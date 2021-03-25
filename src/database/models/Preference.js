@@ -7,21 +7,21 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-       value : {
-           type : dataTypes.STRING(2),
-           allowNull : true,
-           defaultValue : null
-       },
-       name_es : {
-           type : dataTypes.STRING,
-           allowNull : true,
-           defaultValue : null
-       },
-       name_en : {
-           type : dataTypes.STRING,
-           allowNUll : true,
-           defaultValue : null
-       }
+        value: {
+            type: dataTypes.STRING(2),
+            allowNull: true,
+            defaultValue: null
+        },
+        name_es: {
+            type: dataTypes.STRING,
+            allowNull: true,
+            defaultValue: null
+        },
+        name_en: {
+            type: dataTypes.STRING,
+            allowNUll: true,
+            defaultValue: null
+        }
     }
     let config = {
         tableName: 'preference',
@@ -30,5 +30,13 @@ module.exports = function (sequelize, dataTypes) {
         paranoid: true
     }
     const Preference = sequelize.define(alias, cols, config)
+
+    Preference.associate = (models) => {
+        Preference.hasMany(models.UserCategoryFitPreference, {
+            as: 'categories_fit_preferences',
+            foreignKey: 'preference_id'
+        })
+    }
+
     return Preference
 }

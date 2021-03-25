@@ -18,5 +18,24 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const Gender = sequelize.define(alias, cols, config)
+    
+    Gender.associate = (models) => {
+        Gender.hasMany(models.User, {
+            as: 'users',
+            foreignKey: 'gender_id'
+        })
+        Gender.belongsToMany(models.Category, {
+            as: 'categories',
+            through: 'gender_category',
+            foreignKey: 'gender_id',
+            otherKey: 'category_id',
+            timestamps: false
+        })
+        Gender.hasMany(models.Product, {
+            as: 'products',
+            foreignKey: 'gender_id',
+        })
+    }
+
     return Gender
 }

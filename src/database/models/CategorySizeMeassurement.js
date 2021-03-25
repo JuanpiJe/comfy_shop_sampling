@@ -1,5 +1,5 @@
 module.exports = function (sequelize, dataTypes) {
-    let alias = "CategorySizeMeassurements"
+    let alias = "CategorySizeMeassurement"
     let cols = {
         id: {
             type: dataTypes.INTEGER(11),
@@ -19,7 +19,7 @@ module.exports = function (sequelize, dataTypes) {
             type: dataTypes.INTEGER(11),
             allowNull: false
         },
-        sub_category_id: {
+        subcategory_id: {
             type: dataTypes.INTEGER(11),
             allowNull: false
         },
@@ -29,11 +29,31 @@ module.exports = function (sequelize, dataTypes) {
         }
     }
     let config = {
-        tableName: 'category_size_meassurements',
+        tableName: 'category_size_meassurement',
         timestamps: true,
         underscored: true,
         paranoid: true
     }
-    const CategorySizeMeassurements = sequelize.define(alias, cols, config)
-    return CategorySizeMeassurements
+    const CategorySizeMeassurement = sequelize.define(alias, cols, config)
+
+    CategorySizeMeassurement.associate = (models) => {
+        CategorySizeMeassurement.belongsTo(models.Category, {
+            as: 'category',
+            foreignKey: 'category_id'
+        })
+        CategorySizeMeassurement.belongsTo(models.Size, {
+            as: 'size',
+            foreignKey: 'size_id'
+        })
+        CategorySizeMeassurement.belongsTo(models.SubCategory, {
+            as: 'subcategory',
+            foreignKey: 'subcategory_id'
+        })
+        CategorySizeMeassurement.belongsTo(models.SubCategory, {
+            as: 'meassurement_point',
+            foreignKey: 'meassurement_point_id'
+        })
+    }    
+
+    return CategorySizeMeassurement
 }

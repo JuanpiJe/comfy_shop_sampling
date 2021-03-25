@@ -27,5 +27,21 @@ module.exports = function (sequelize, dataTypes) {
         paranoid: true
     }
     const UserBodyShape = sequelize.define(alias, cols, config)
+    
+    UserBodyShape.associate = (models) => {
+        UserBodyShape.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'user_id'
+        })
+        UserBodyShape.belongsTo(models.BodyShapeType, {
+            as: 'body_shape_type',
+            foreignKey: 'body_shape_type_id'
+        })
+        UserBodyShape.belongsTo(models.BodyPart, {
+            as: 'body_part',
+            foreignKey: 'body_part_id'
+        })
+    }
+
     return UserBodyShape
 }

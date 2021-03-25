@@ -22,5 +22,17 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const MeassurementPoint = sequelize.define(alias, cols, config)
+
+    MeassurementPoint.associate = (models) => {
+        MeassurementPoint.hasMany(models.CategorySizeMeassurement, {
+            as: 'categories_meassurements',
+            foreignKey: 'meassurement_point_id'
+        }),
+            MeassurementPoint.belongsTo(models.BodyPart, {
+                as: 'body_part',
+                foreignKey: 'body_part_id'
+            })
+    }    
+
     return MeassurementPoint
 }

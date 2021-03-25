@@ -28,5 +28,13 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const Rating = sequelize.define(alias, cols, config)
+
+    Rating.associate = (models) => {
+        Rating.hasMany(models.UserFeedback, {
+            as : 'user_feedback',
+            foreignKey : 'rating_id'
+        })
+    }
+
     return Rating
 }

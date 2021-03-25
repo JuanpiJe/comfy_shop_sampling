@@ -33,5 +33,13 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const Collection = sequelize.define(alias, cols, config)
+
+    Collection.associate = (models) => {
+        Collection.hasMany(models.BrandCollection, {
+            as : 'brand_collections',
+            foreignKey : 'collection_id'
+        })
+    }
+
     return Collection
 }

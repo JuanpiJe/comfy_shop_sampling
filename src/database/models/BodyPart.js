@@ -23,5 +23,17 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const BodyPart = sequelize.define(alias, cols, config)
+    
+    BodyPart.associate = (models) => {
+        BodyPart.hasMany(models.UserBodyShape, {
+            as : 'body_shapes',
+            foreignKey : 'body_part_id'
+        })
+        BodyPart.hasMany(models.UserFeedback, {
+            as : 'feedbacks',
+            foreignKey : 'body_part_id'
+        })
+    }
+
     return BodyPart
 }

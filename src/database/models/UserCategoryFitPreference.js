@@ -27,5 +27,21 @@ module.exports = function (sequelize, dataTypes) {
         paranoid: true
     }
     const UserCategoryFitPreference = sequelize.define(alias, cols, config)
+    
+    UserCategoryFitPreference.associate = (models) => {
+        UserCategoryFitPreference.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'user_id'
+        })
+        UserCategoryFitPreference.belongsTo(models.Preference, {
+            as: 'preference',
+            foreignKey: 'preference_id'
+        })
+        UserCategoryFitPreference.belongsTo(models.Category, {
+            as: 'category',
+            foreignKey: 'category_id'
+        })
+    }
+    
     return UserCategoryFitPreference
 }

@@ -118,6 +118,7 @@ CREATE TABLE `brand` (
 
 LOCK TABLES `brand` WRITE;
 /*!40000 ALTER TABLE `brand` DISABLE KEYS */;
+INSERT INTO `brand` VALUES (1,'testBrand','testContactName',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,6 +150,7 @@ CREATE TABLE `brand_collection` (
 
 LOCK TABLES `brand_collection` WRITE;
 /*!40000 ALTER TABLE `brand_collection` DISABLE KEYS */;
+INSERT INTO `brand_collection` VALUES (1,1,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `brand_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,17 +190,17 @@ CREATE TABLE `category_size_meassurement` (
   `meassurement` decimal(3,2) DEFAULT NULL,
   `size_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `sub_category_id` int(11) DEFAULT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
   `meassurement_point_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_category_size_meassurements_category1_idx` (`category_id`),
   KEY `fk_category_size_meassurements_size1_idx` (`size_id`),
-  KEY `fk_category_size_meassurements_sub_category1_idx` (`sub_category_id`),
+  KEY `fk_category_size_meassurements_sub_category1_idx` (`subcategory_id`),
   KEY `fk_category_size_meassurements_meassurement_point1_idx` (`meassurement_point_id`),
   CONSTRAINT `fk_category_size_meassurements_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_category_size_meassurements_meassurement_point1` FOREIGN KEY (`meassurement_point_id`) REFERENCES `meassurement_point` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_category_size_meassurements_size1` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_category_size_meassurements_sub_category1` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_category_size_meassurements_sub_category1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -234,6 +236,7 @@ CREATE TABLE `collection` (
 
 LOCK TABLES `collection` WRITE;
 /*!40000 ALTER TABLE `collection` DISABLE KEYS */;
+INSERT INTO `collection` VALUES (1,'AW',2021,NULL,NULL);
 /*!40000 ALTER TABLE `collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,21 +362,24 @@ CREATE TABLE `product` (
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_id` int(11) NOT NULL,
-  `sub_category_id` int(11) DEFAULT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
   `brand_id` int(11) NOT NULL,
   `brand_collection_id` int(11) NOT NULL,
+  `gender_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_category1_idx` (`category_id`),
-  KEY `fk_product_sub_category1_idx` (`sub_category_id`),
+  KEY `fk_product_sub_category1_idx` (`subcategory_id`),
   KEY `fk_product_shop1_idx` (`brand_id`),
   KEY `fk_product_season1_idx` (`brand_collection_id`),
+  KEY `fk_product_gender_id1_idx` (`gender_id`),
   CONSTRAINT `fk_product_brand_collection1` FOREIGN KEY (`brand_collection_id`) REFERENCES `brand_collection` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_product_gender_id1` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_shop1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_product_sub_category1` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_product_sub_category1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -383,6 +389,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,123,'testProduct',NULL,1,NULL,1,1,1,NULL,NULL,NULL),(2,1234,'testProduct2',NULL,2,NULL,1,1,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,7 +459,7 @@ CREATE TABLE `shop` (
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contact_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contactname` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `province` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `city` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(155) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -469,6 +476,7 @@ CREATE TABLE `shop` (
 
 LOCK TABLES `shop` WRITE;
 /*!40000 ALTER TABLE `shop` DISABLE KEYS */;
+INSERT INTO `shop` VALUES (1,'testShop','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'testShop2','test2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,6 +533,7 @@ CREATE TABLE `shop_product` (
 
 LOCK TABLES `shop_product` WRITE;
 /*!40000 ALTER TABLE `shop_product` DISABLE KEYS */;
+INSERT INTO `shop_product` VALUES (1,1,1);
 /*!40000 ALTER TABLE `shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,18 +558,18 @@ CREATE TABLE `size` (
 
 LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
-INSERT INTO `size` VALUES (1,'Extra Small','XS'),(2,'Small','S'),(3,'Medium','M'),(4,'Large','L'),(5,'Extra Large','XL'),(6,'Extra Extra Large','XXL'),(7,'24','24'),(8,'26','26'),(9,'28','28'),(10,'30','30'),(11,'32','32'),(12,'34','34'),(13,'36','36'),(14,'38','38');
+INSERT INTO `size` VALUES (1,'Extra Small','XS'),(2,'Small','S'),(3,'Medium','M'),(4,'Large','L'),(5,'Extra Large','XL'),(6,'Extra Extra Large','XXL');
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `sub_category`
+-- Table structure for table `subcategory`
 --
 
-DROP TABLE IF EXISTS `sub_category`;
+DROP TABLE IF EXISTS `subcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sub_category` (
+CREATE TABLE `subcategory` (
   `id` int(11) NOT NULL,
   `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_id` int(11) NOT NULL,
@@ -571,12 +580,44 @@ CREATE TABLE `sub_category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sub_category`
+-- Dumping data for table `subcategory`
 --
 
-LOCK TABLES `sub_category` WRITE;
-/*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
+LOCK TABLES `subcategory` WRITE;
+/*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `survey`
+--
+
+DROP TABLE IF EXISTS `survey`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `survey` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_surveys_user2_idx` (`user_id`),
+  KEY `fk_surveys_shop2_idx` (`shop_id`),
+  CONSTRAINT `fk_surveys_shop2` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_surveys_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `survey`
+--
+
+LOCK TABLES `survey` WRITE;
+/*!40000 ALTER TABLE `survey` DISABLE KEYS */;
+INSERT INTO `survey` VALUES (1,1,1,NULL,NULL,NULL),(2,2,1,NULL,NULL,NULL),(3,2,1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `survey` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -612,6 +653,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'test@gmail.com',2,175,75,23,22,NULL,NULL,NULL,NULL),(2,'test2@mail.com',1,165,70,21,24,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -646,6 +688,7 @@ CREATE TABLE `user_body_shape` (
 
 LOCK TABLES `user_body_shape` WRITE;
 /*!40000 ALTER TABLE `user_body_shape` DISABLE KEYS */;
+INSERT INTO `user_body_shape` VALUES (1,1,1,1,NULL,NULL,NULL),(2,2,2,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user_body_shape` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,6 +706,7 @@ CREATE TABLE `user_category_fit_preference` (
   `category_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_preference_user1` (`user_id`),
   KEY `fk_user_category_fit_preference_preference1_idx` (`preference_id`),
@@ -695,6 +739,7 @@ CREATE TABLE `user_feedback` (
   `body_part_id` int(11) NOT NULL,
   `rating_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -703,9 +748,11 @@ CREATE TABLE `user_feedback` (
   KEY `fk_user_feedback_body_part_id1_idx` (`body_part_id`),
   KEY `fk_user_feedback_rating_id1_idx` (`rating_id`),
   KEY `fk_user_feedback_product_id_idx` (`product_id`),
+  KEY `fk_user_feedback_survey_id1_idx` (`survey_id`),
   CONSTRAINT `fk_user_feedback_body_part_id1` FOREIGN KEY (`body_part_id`) REFERENCES `body_part` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_feedback_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_feedback_rating_id1` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_feedback_survey_id1` FOREIGN KEY (`survey_id`) REFERENCES `survey` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_feedback_user_id1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -716,6 +763,7 @@ CREATE TABLE `user_feedback` (
 
 LOCK TABLES `user_feedback` WRITE;
 /*!40000 ALTER TABLE `user_feedback` DISABLE KEYS */;
+INSERT INTO `user_feedback` VALUES (1,1,1,1,1,1,NULL,NULL,NULL),(2,1,2,2,1,1,NULL,NULL,NULL),(3,2,3,3,1,2,NULL,NULL,NULL),(4,2,4,2,2,3,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -728,4 +776,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-23 16:25:38
+-- Dump completed on 2021-03-24 21:11:17

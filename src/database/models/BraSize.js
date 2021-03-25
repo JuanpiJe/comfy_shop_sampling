@@ -18,5 +18,13 @@ module.exports = function (sequelize, dataTypes) {
         timestamps : false
     }
     const BraSize = sequelize.define(alias, cols, config)
+
+    BraSize.associate = (models) => {
+        BraSize.hasMany(models.User, {
+            as: 'users',
+            foreignKey: 'bra_size_id'
+        })
+    }
+
     return BraSize
 }
