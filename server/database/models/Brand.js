@@ -12,7 +12,7 @@ module.exports = function (sequelize, dataTypes) {
             allowNull: true,
             defaultValue : null
         },
-        contactname : {
+        contact_name : {
             type: dataTypes.STRING(45),
             allowNull: true,
             defaultValue : null

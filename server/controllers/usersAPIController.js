@@ -35,7 +35,7 @@ module.exports = {
                     braSize
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error){
             let response = {

@@ -1,9 +1,14 @@
 const db = require('../database/models')
-const fetch = require('node-fetch')
+const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator');
+require('dotenv').config()
 module.exports = {
+    //---------------------------------------------------------------------//
+    //------------------ Shops GET Requests Controllers -------------------//
+    //---------------------------------------------------------------------//
     overview: async (req, res) => {
         try {
-            let shops = await db.Shop.findByPk(req.params.id, {
+            let shops = await db.Shop.findByPk(req.user.id, {
                 include: {
                     all: true
                 }
@@ -11,13 +16,13 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.params.id}`
+                    url: `/api/shops/${req.user.id}`
                 },
                 data: {
-                    shops
+                    shop: shops
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -30,12 +35,12 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response)
+            return res.send(response.data)
         }
     },
     products: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.params.id, {
+            let shopProducts = await db.Shop.findByPk(req.user.id, {
                 attributes: [],
                 include: [
                     { association: 'products', include: [{ association: 'category' }] }
@@ -44,14 +49,14 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.params.id}/products`
+                    url: `/api/shops/${req.user.id}/products`
                 },
                 data: {
                     total: shopProducts.products.length,
                     shopProducts: shopProducts.products,
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -64,12 +69,12 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response)
+            return res.send(response.data)
         }
     },
     categories: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.params.id, {
+            let shopProducts = await db.Shop.findByPk(req.user.id, {
                 attributes: [],
                 include: [
                     { association: 'products', include: [{ association: 'category' }] }
@@ -86,14 +91,14 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.params.id}/categories`
+                    url: `/api/shops/${req.user.id}/categories`
                 },
                 data: {
                     total: uniqueCategories.length,
                     categories: uniqueCategories
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -106,31 +111,31 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response)
+            return res.send(response.data)
         }
     },
     category: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.params.id, {
+            let shopProducts = await db.Shop.findByPk(req.user.id, {
                 attributes: [],
                 include: [
-                    { association: 'products', include: [{ association: 'category', where : {id : req.params.category}, attributes : []}]}
+                    { association: 'products', include: [{ association: 'category', where: { id: req.params.category }, attributes: [] }] }
                 ]
             })
             let total = shopProducts.products.length
-            let category = await db.Category.findByPk (req.params.category)
+            let category = await db.Category.findByPk(req.params.category)
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.params.id}/category/${req.params.category}`
+                    url: `/api/shops/${req.user.id}/category/${req.params.category}`
                 },
                 data: {
                     total,
                     category,
-                    shopProducts: shopProducts.products,
+                    products: shopProducts.products,
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -143,26 +148,24 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(req.params.category)
+            return res.send(response.data)
         }
     },
     surveys: async (req, res) => {
         try {
-            let surveys = await db.Survey.findByPk(req.params.id, {
-                attributes: ['id', 'user_id'],
+            let surveys = await db.Shop.findByPk(req.user.id, {
+                attributes: [],
                 include: [
-                    { association: 'user', attributes: ['email'] },
-                    { association: 'users_feedbacks', attributes: ['id', 'product_id'] }
-                ]
+                    { association: 'surveys' }]
             })
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/surveys/${req.params.id}`
+                    url: `/api/surveys/${req.user.id}`
                 },
                 data: {
-                    total: surveys.length,
-                    surveys
+                    total: surveys.surveys.length,
+                    surveys: surveys.surveys
                 }
             }
             return res.json(response)
@@ -178,7 +181,23 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response)
+            return res.send(response.data)
         }
+    },
+    //---------------------------------------------------------------------//
+    //------------------ Shops POST Requests Controllers ------------------//
+    //---------------------------------------------------------------------//
+    login: async (req, res) => {
+        // res.send(req.body.username)
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
+            let shop = await db.Shop.findOne({
+                where: { username: req.body.username }
+            })
+            let token = jwt.sign({ id: shop.id }, process.env.TOKEN_SECRET);
+            res.header('auth-token', token).send(token)
+        }
+        else return res.status(400).send(errors.mapped())
+
     }
 }

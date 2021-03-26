@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `brand`;
 CREATE TABLE `brand` (
   `id` int(11) NOT NULL,
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contactname` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `province` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `city` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(155) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `brand` (
 
 LOCK TABLES `brand` WRITE;
 /*!40000 ALTER TABLE `brand` DISABLE KEYS */;
-INSERT INTO `brand` VALUES (1,'testBrand','testContactName',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `brand` VALUES (1,'testBrand','testcontact_name',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,7 +459,7 @@ CREATE TABLE `shop` (
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contactname` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `province` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `city` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(155) COLLATE utf8_unicode_ci DEFAULT NULL,

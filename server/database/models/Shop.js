@@ -5,7 +5,8 @@ module.exports = function (sequelize, dataTypes) {
             type: dataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            defaultValue : null
         },
         name : {
             type : dataTypes.STRING(45),
@@ -22,7 +23,12 @@ module.exports = function (sequelize, dataTypes) {
             allowNull : true,
             defaultValue : null
         },
-        contactname : {
+        contact_number : {
+            type : dataTypes.STRING(45),
+            allowNull : true,
+            defaultValue : null
+        },
+        contact_name : {
             type : dataTypes.STRING(45),
             allowNull : true,
             defaultValue : null

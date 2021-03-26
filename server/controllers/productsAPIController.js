@@ -12,7 +12,7 @@ module.exports = {
                     categories
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -24,7 +24,7 @@ module.exports = {
                     errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
     },
     sizes: async (req, res) => {
@@ -39,7 +39,7 @@ module.exports = {
                     sizes
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -51,7 +51,7 @@ module.exports = {
                     errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
     },
     genders: async (req, res) => {
@@ -66,7 +66,7 @@ module.exports = {
                     genders
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
         catch (error) {
             let response = {
@@ -78,7 +78,7 @@ module.exports = {
                     errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
                 }
             }
-            return res.send(response)
+            return res.send(response.data)
         }
     }
 }
