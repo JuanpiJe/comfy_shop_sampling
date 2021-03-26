@@ -18,7 +18,7 @@ module.exports = function (sequelize, dataTypes) {
         }
     }
     let config = {
-        tableName: 'rating',
+        tableName: 'subcategory',
         timestamps : false
     }
     const SubCategory = sequelize.define(alias, cols, config)

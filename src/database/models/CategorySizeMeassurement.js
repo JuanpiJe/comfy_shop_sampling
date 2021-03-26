@@ -30,9 +30,7 @@ module.exports = function (sequelize, dataTypes) {
     }
     let config = {
         tableName: 'category_size_meassurement',
-        timestamps: true,
-        underscored: true,
-        paranoid: true
+        timestamps: false
     }
     const CategorySizeMeassurement = sequelize.define(alias, cols, config)
 
