@@ -16,7 +16,12 @@ module.exports = function (sequelize, dataTypes) {
            type : dataTypes.STRING,
            allowNull : true,
            defaultValue : null
-       }
+       },
+       zone : {
+        type : dataTypes.STRING,
+        allowNull : true,
+        defaultValue : null
+    }
     }
     let config = {
         tableName: 'body_part',

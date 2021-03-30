@@ -28,13 +28,13 @@ module.exports = function (sequelize, dataTypes) {
             as: 'user_fit_preferences',
             foreignKey: 'category_id'
         })
-        Category.hasMany(models.CategorySizeMeassurement, {
-            as: 'size_meassurements',
-            foreignKey: 'category_id'
-        })
         Category.hasMany(models.SubCategory, {
             as: 'sub_categories',
             foreignKey: 'category_id'
+        })
+        Category.hasMany(models.BrandCategory, {
+            as : 'brands',
+            foreignKey : 'category_id'
         })
         Category.belongsToMany(models.Gender, {
             as: 'genders',

@@ -80,5 +80,24 @@ module.exports = {
             }
             return res.send(response.data)
         }
+    },
+    create : async (req, res) => {
+        try {
+            let create = await db.Product.create({
+                
+            })
+        }
+        catch (error){
+            let response = {
+                meta: {
+                    status: 500,
+                    error
+                },
+                data: {
+                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                }
+            }
+            return res.send(response.data)
+        }
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
     //---------------------------------------------------------------------//
     overview: async (req, res) => {
         try {
-            let shops = await db.Shop.findByPk(req.user.id, {
+            let shops = await db.Shop.findByPk(req.shop.id, {
                 include: {
                     all: true
                 }
@@ -16,7 +16,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.user.id}`
+                    url: `/api/shops/${req.shop.id}`
                 },
                 data: {
                     shop: shops
@@ -31,7 +31,7 @@ module.exports = {
                     error
                 },
                 data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
             console.log(error);
@@ -40,7 +40,7 @@ module.exports = {
     },
     products: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.user.id, {
+            let shopProducts = await db.Shop.findByPk(req.shop.id, {
                 attributes: [],
                 include: [
                     { association: 'products', include: [{ association: 'category' }] }
@@ -49,7 +49,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.user.id}/products`
+                    url: `/api/shops/${req.shop.id}/products`
                 },
                 data: {
                     total: shopProducts.products.length,
@@ -65,7 +65,7 @@ module.exports = {
                     error
                 },
                 data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
             console.log(error);
@@ -74,7 +74,7 @@ module.exports = {
     },
     categories: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.user.id, {
+            let shopProducts = await db.Shop.findByPk(req.shop.id, {
                 attributes: [],
                 include: [
                     { association: 'products', include: [{ association: 'category' }] }
@@ -91,7 +91,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.user.id}/categories`
+                    url: `/api/shops/${req.shop.id}/categories`
                 },
                 data: {
                     total: uniqueCategories.length,
@@ -107,7 +107,7 @@ module.exports = {
                     error
                 },
                 data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
             console.log(error);
@@ -116,7 +116,7 @@ module.exports = {
     },
     category: async (req, res) => {
         try {
-            let shopProducts = await db.Shop.findByPk(req.user.id, {
+            let shopProducts = await db.Shop.findByPk(req.shop.id, {
                 attributes: [],
                 include: [
                     { association: 'products', include: [{ association: 'category', where: { id: req.params.category }, attributes: [] }] }
@@ -127,7 +127,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/shops/${req.user.id}/category/${req.params.category}`
+                    url: `/api/shops/${req.shop.id}/category/${req.params.category}`
                 },
                 data: {
                     total,
@@ -144,7 +144,7 @@ module.exports = {
                     error
                 },
                 data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
             console.log(error);
@@ -153,7 +153,7 @@ module.exports = {
     },
     surveys: async (req, res) => {
         try {
-            let surveys = await db.Shop.findByPk(req.user.id, {
+            let surveys = await db.Shop.findByPk(req.shop.id, {
                 attributes: [],
                 include: [
                     { association: 'surveys' }]
@@ -161,7 +161,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: `/api/surveys/${req.user.id}`
+                    url: `/api/surveys/${req.shop.id}`
                 },
                 data: {
                     total: surveys.surveys.length,
@@ -177,7 +177,45 @@ module.exports = {
                     error
                 },
                 data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
+                }
+            }
+            console.log(error);
+            return res.send(response.data)
+        }
+    },
+    createCategoryView: async (req, res) => {
+        try {
+            let brands = await db.Brand.findAll({
+                attributes: ['id', 'name'],
+                include: [{ association: 'shops', where: { id: req.shop.id }, attributes: [] }]
+            })
+            genders = await db.Gender.findAll()
+            categories = await db.Category.findAll()
+            sizes = await db.Size.findAll()
+            meassurementPoints = await db.MeassurementPoint.findAll()
+            let response = {
+                meta: {
+                    status: 200,
+                    url: `/api/create-view`
+                },
+                data: {
+                    brands,
+                    genders,
+                    categories,
+                    sizes,
+                    meassurementPoints
+                }
+            }
+            return res.json(response)
+        } catch (errors) {
+            let response = {
+                meta: {
+                    status: 500,
+                    error
+                },
+                data: {
+                    errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
             console.log(error);
@@ -198,6 +236,8 @@ module.exports = {
             res.header('auth-token', token).send(token)
         }
         else return res.status(400).send(errors.mapped())
-
+    },
+    createCategoryPost : async (req, res) => {
+        
     }
 }

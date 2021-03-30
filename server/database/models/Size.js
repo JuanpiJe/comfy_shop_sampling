@@ -25,7 +25,7 @@ module.exports = function (sequelize, dataTypes) {
     const Size = sequelize.define(alias, cols, config)
 
     Size.associate = (models) => {
-        Size.hasMany(models.CategorySizeMeassurement, {
+        Size.hasMany(models.BrandCategorySizeMeassurement, {
             as: 'category_meassurement',
             foreignKey: 'size_id'
         })

@@ -49,12 +49,16 @@ module.exports = function (sequelize, dataTypes) {
         Brand.hasMany(models.BrandCollection, {
             as : 'collections',
             foreignKey : 'brand_id'
-        }),
+        })
+        Brand.hasMany(models.BrandCategory, {
+            as : 'categories',
+            foreignKey : 'brand_id'
+        })
         Brand.belongsToMany(models.Shop, {
             as : 'shops',
             through : 'shop_brand',
             foreignKey : 'brand_id',
-            otherKey : 'brand_id',
+            otherKey : 'shop_id',
             timestamps : false
         })
     }

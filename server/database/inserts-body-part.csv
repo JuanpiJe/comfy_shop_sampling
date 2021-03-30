@@ -1,0 +1,11 @@
+id,name_es,name_en,zone
+1,Cuello,Neck,Top
+2,Pecho,Chest,Top
+3,Busto,Bust,Top
+4,Abdomen,Belly,Top
+8,Caderas,Hip,Middle
+6,Torso,Torso,Top
+7,Brazos,Arms,Top
+5,Cintura,Waist,Top
+9,Muslo,Thigh,Bottom
+10,Piernas,Legs,Bottom

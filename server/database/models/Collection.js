@@ -39,6 +39,10 @@ module.exports = function (sequelize, dataTypes) {
             as : 'brand_collections',
             foreignKey : 'collection_id'
         })
+        Collection.hasMany(models.BrandCollection, {
+            as: 'brand_categories',
+            foreignKey: 'collection_id'
+        })
     }
 
     return Collection

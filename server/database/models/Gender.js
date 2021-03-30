@@ -35,6 +35,10 @@ module.exports = function (sequelize, dataTypes) {
             as: 'products',
             foreignKey: 'gender_id',
         })
+        Gender.hasMany(models.Brand, {
+            as : 'brand_categories',
+            foreignKey : 'gender_id'
+        })
     }
 
     return Gender

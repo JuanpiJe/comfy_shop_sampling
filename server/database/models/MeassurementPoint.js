@@ -7,7 +7,7 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-       name_es : {
+       title : {
            type : dataTypes.STRING,
            allowNull : true,
            defaultValue : null
@@ -24,10 +24,10 @@ module.exports = function (sequelize, dataTypes) {
     const MeassurementPoint = sequelize.define(alias, cols, config)
 
     MeassurementPoint.associate = (models) => {
-        MeassurementPoint.hasMany(models.CategorySizeMeassurement, {
-            as: 'categories_meassurements',
+        MeassurementPoint.hasMany(models.BrandCategorySizeMeassurement, {
+            as: 'brand_category_size_meassurement',
             foreignKey: 'meassurement_point_id'
-        }),
+        })
             MeassurementPoint.belongsTo(models.BodyPart, {
                 as: 'body_part',
                 foreignKey: 'body_part_id'
