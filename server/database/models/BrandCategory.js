@@ -49,7 +49,7 @@ module.exports = function (sequelize, dataTypes) {
             as : 'gender',
             foreignKey : 'gender_id'
         })
-        BrandCategory.belongsTo(models.SubCategory, {
+        BrandCategory.belongsTo(models.Subcategory, {
             as : 'subcategory',
             foreignKey : 'subcategory_id'
         })

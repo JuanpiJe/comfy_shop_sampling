@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `body_part`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `body_part` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name_en` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `body_shape_type`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `body_shape_type` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name_en` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -222,7 +222,7 @@ DROP TABLE IF EXISTS `collection`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `collection` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
@@ -249,7 +249,7 @@ DROP TABLE IF EXISTS `gender`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gender` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -330,7 +330,7 @@ DROP TABLE IF EXISTS `preference`;
 CREATE TABLE `preference` (
   `id` int(11) NOT NULL,
   `value` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name_en` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -431,7 +431,7 @@ DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
   `id` int(11) NOT NULL,
   `value` varchar(4) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name_en` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -571,7 +571,7 @@ DROP TABLE IF EXISTS `subcategory`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subcategory` (
   `id` int(11) NOT NULL,
-  `name_es` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_sub_category_category1` (`category_id`),

@@ -3,16 +3,16 @@ module.exports = {
     formData: async (req, res) => {
         try {
             let preferences = await db.Preference.findAll({
-                attributes: ['id', 'value', 'name_es']
+                attributes: ['id', 'value', 'name']
             })
             let bodyParts = await db.BodyPart.findAll({
-                attributes: ['id', 'name_es']
+                attributes: ['id', 'name']
             })
             let bodyTypes = await db.BodyShapeType.findAll({
-                attributes: ['id', 'name_es']
+                attributes: ['id', 'name']
             })
             let rating = await db.Rating.findAll({
-                attributes: ['id', 'value', 'name_es']
+                attributes: ['id', 'value', 'name']
             })
             let braSize = await db.BraSize.findAll({
                 attributes: ['id', 'value']

@@ -7,7 +7,7 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-       name_es : {
+       name : {
            type : dataTypes.STRING,
            allowNull : true,
            defaultValue : null
@@ -26,16 +26,17 @@ module.exports = function (sequelize, dataTypes) {
         })
         Gender.belongsToMany(models.Category, {
             as: 'categories',
-            through: 'gender_category',
+            through: models.GenderCategory,
             foreignKey: 'gender_id',
             otherKey: 'category_id',
-            timestamps: false
+            timestamps: false,
+            underscored : true
         })
         Gender.hasMany(models.Product, {
             as: 'products',
             foreignKey: 'gender_id',
         })
-        Gender.hasMany(models.Brand, {
+        Gender.hasMany(models.BrandCategory, {
             as : 'brand_categories',
             foreignKey : 'gender_id'
         })

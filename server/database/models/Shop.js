@@ -67,7 +67,7 @@ module.exports = function (sequelize, dataTypes) {
         })
         Shop.belongsToMany(models.Brand, {
             as: 'brands',
-            through: 'shop_brand',
+            through: models.ShopBrand,
             foreignKey: 'shop_id',
             otherKey: 'brand_id',
             timestamps: false

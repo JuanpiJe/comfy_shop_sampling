@@ -5,7 +5,7 @@ const verifyToken = require('../middlewares/verifyToken')
 const createCategoryValidator = require('../validators/createCategoryValidator')
 
 router.post('/login', loginValidator, shopsAPIController.login)
-router.post('/create-category', verifyToken, createCategoryValidator, shopsAPIController.createCategoryPost)
+router.post('/create-category', verifyToken, shopsAPIController.createCategoryPost)
 router.get('/create-category', verifyToken, shopsAPIController.createCategoryView)
 router.get('/overview', verifyToken ,shopsAPIController.overview)
 router.get('/products', verifyToken ,shopsAPIController.products)

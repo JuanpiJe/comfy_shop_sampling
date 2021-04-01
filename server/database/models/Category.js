@@ -7,7 +7,7 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-       name_es : {
+       name : {
            type : dataTypes.STRING,
            allowNull : true,
            defaultValue : null
@@ -28,8 +28,12 @@ module.exports = function (sequelize, dataTypes) {
             as: 'user_fit_preferences',
             foreignKey: 'category_id'
         })
-        Category.hasMany(models.SubCategory, {
+        Category.hasMany(models.Subcategory, {
             as: 'sub_categories',
+            foreignKey: 'category_id'
+        })
+        Category.hasMany(models.Model, {
+            as: 'models',
             foreignKey: 'category_id'
         })
         Category.hasMany(models.BrandCategory, {
@@ -38,7 +42,7 @@ module.exports = function (sequelize, dataTypes) {
         })
         Category.belongsToMany(models.Gender, {
             as: 'genders',
-            through: 'gender_category',
+            through: models.GenderCategory,
             foreignKey: 'category_id',
             otherKey: 'gender_id',
             timestamps: false

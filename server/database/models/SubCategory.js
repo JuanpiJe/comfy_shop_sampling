@@ -1,5 +1,5 @@
 module.exports = function (sequelize, dataTypes) {
-    let alias = "SubCategory"
+    let alias = "Subcategory"
     let cols = {
         id: {
             type: dataTypes.INTEGER(11),
@@ -7,7 +7,7 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-        name_es: {
+        name: {
             type: dataTypes.STRING,
             allowNull: true,
             defaultValue: null
@@ -21,22 +21,22 @@ module.exports = function (sequelize, dataTypes) {
         tableName: 'subcategory',
         timestamps : false
     }
-    const SubCategory = sequelize.define(alias, cols, config)
+    const Subcategory = sequelize.define(alias, cols, config)
     
-    SubCategory.associate = (models) => {
-        SubCategory.hasMany(models.Product, {
+    Subcategory.associate = (models) => {
+        Subcategory.hasMany(models.Product, {
             as: 'products',
             foreignKey: 'subcategory_id'
         })
-        SubCategory.hasMany(models.BrandCategory, {
+        Subcategory.hasMany(models.BrandCategory, {
             as: 'brand_categories',
             foreignKey: 'subcategory_id'
         })
-        SubCategory.belongsTo(models.Category, {
+        Subcategory.belongsTo(models.Category, {
             as: 'category',
             foreignKey: 'category_id'
         })
     }
 
-    return SubCategory
+    return Subcategory
 }

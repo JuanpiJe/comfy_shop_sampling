@@ -8,7 +8,7 @@ module.exports = function (sequelize, dataTypes) {
             autoIncrement: true
         },
         meassurement: {
-            type: dataTypes.DECIMAL(5,2),
+            type: dataTypes.INTEGER(11),
             allowNull: false
         },
         size_id: {

@@ -1,4 +1,4 @@
-SELECT survey.id as EncuestaNumero, shop.name as Tienda , user.email as EmailUsuario,product.name as NombreProducto, body_part.name_es as ParteDelCuerpo, rating.name_es as Puntuación
+SELECT survey.id as EncuestaNumero, shop.name as Tienda , user.email as EmailUsuario,product.name as NombreProducto, body_part.name as ParteDelCuerpo, rating.name as Puntuación
 FROM survey
 INNER JOIN user_feedback
 ON survey.id = user_feedback.survey_id
