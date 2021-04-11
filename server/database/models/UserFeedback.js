@@ -19,7 +19,7 @@ module.exports = function (sequelize, dataTypes) {
             type: dataTypes.INTEGER(11),
             allowNull: false
         },
-        product_id: {
+        brand_category_id: {
             type: dataTypes.INTEGER(11),
             allowNull: false
         }
@@ -37,6 +37,14 @@ module.exports = function (sequelize, dataTypes) {
             as: 'user',
             foreignKey: 'user_id'
         })
+        UserFeedback.belongsTo(models.BrandCategory, {
+            as: 'brand_category',
+            foreignKey: 'brand_category_id'
+        })
+        UserFeedback.belongsTo(models.Size, {
+            as: 'size',
+            foreignKey: 'size_id'
+        })
         UserFeedback.belongsTo(models.Rating, {
             as: 'rating',
             foreignKey: 'rating_id'
@@ -45,10 +53,6 @@ module.exports = function (sequelize, dataTypes) {
             as: 'body_part',
             foreignKey: 'body_part_id'
         })
-        UserFeedback.belongsTo(models.Product, {
-            as: 'product',
-            foreignKey: 'product_id'
-        }),
         UserFeedback.belongsTo(models.Survey, {
             as: 'survey',
             foreignKey: 'survey_id'

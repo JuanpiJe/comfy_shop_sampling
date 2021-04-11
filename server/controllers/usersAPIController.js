@@ -49,5 +49,63 @@ module.exports = {
             }
             return response
         }
-    }
+    },
+    formCreate : async (req, res)=> {
+        try {
+            let data = {
+                email : null,
+                gender : null,                
+                weight : null,
+                height : null,
+                age : null,
+                bmi : null,
+                bra_size : null,
+                user_category_fit_preference : [
+                    {
+                        preference_id : null,
+                        category_id : null
+                    },
+                    {
+                        preference_id : null,
+                        category_id : null
+                    }
+                ],
+                user_body_shape : [
+                    {
+                        body_shape_type_id : null,
+                        body_part_id : null
+                    },
+                    {
+                        body_shape_type_id : null,
+                        body_part_id : null
+                    },
+                    {
+                        body_shape_type_id : null,
+                        body_part_id : null
+                    }
+                ],
+                user_feedback : [
+                    {
+                        brand_category_id : null,
+                        body_part_id : null,
+                        rating_id : null,
+                        survey_id : null
+                    },
+                    {
+                        brand_category_id : null,
+                        body_part_id : null,
+                        rating_id : null,
+                        survey_id : null
+                    }
+                ]
+            }
+            
+            
+
+        }
+        catch {
+
+        }
+    },
+
 }

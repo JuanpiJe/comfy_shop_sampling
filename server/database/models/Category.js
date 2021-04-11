@@ -20,10 +20,6 @@ module.exports = function (sequelize, dataTypes) {
     const Category = sequelize.define(alias, cols, config)
     
     Category.associate = (models) => {
-        Category.hasMany(models.Product, {
-            as: 'products',
-            foreignKey: 'category_id'
-        })
         Category.hasMany(models.UserCategoryFitPreference, {
             as: 'user_fit_preferences',
             foreignKey: 'category_id'
@@ -37,7 +33,7 @@ module.exports = function (sequelize, dataTypes) {
             foreignKey: 'category_id'
         })
         Category.hasMany(models.BrandCategory, {
-            as : 'brands',
+            as : 'brands_categories',
             foreignKey : 'category_id'
         })
         Category.belongsToMany(models.Gender, {

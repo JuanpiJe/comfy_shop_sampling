@@ -16,13 +16,15 @@ console.log(process.env['SOCKET_PATH'])
 
 //Import Routes
 const usersAPIRouter = require('./routes/usersAPIRouter')
-const productsAPIRouter = require('./routes/productsAPIRouter')
+const surveysAPIRouter = require('./routes/surveysAPIRouter')
+const categoriesAPIRouter = require('./routes/categoriesAPIRouter')
 const shopsAPIRouter = require('./routes/shopsAPIRouter')
 const adminAPIRouter = require('./routes/adminAPIRouter')
 
 //Routes
 app.use('/api/users', usersAPIRouter)
-app.use('/api/products', productsAPIRouter)
+app.use('/api/surveys', surveysAPIRouter)
+app.use('/api/categories', categoriesAPIRouter)
 app.use('/api/shops', shopsAPIRouter)
 app.use('/api/admin', adminAPIRouter)
 

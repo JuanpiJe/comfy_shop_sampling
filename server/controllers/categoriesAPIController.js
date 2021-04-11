@@ -6,7 +6,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: 'api/products/categories'
+                    url: 'api/categories'
                 },
                 data: {
                     categories
@@ -33,7 +33,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: 'api/products/sizes'
+                    url: 'api/categories/sizes'
                 },
                 data: {
                     sizes
@@ -60,7 +60,7 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    url: 'api/products/genders'
+                    url: 'api/categories/genders'
                 },
                 data: {
                     genders
@@ -69,25 +69,6 @@ module.exports = {
             return res.send(response.data)
         }
         catch (error) {
-            let response = {
-                meta: {
-                    status: 500,
-                    error
-                },
-                data: {
-                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
-                }
-            }
-            return res.send(response.data)
-        }
-    },
-    create : async (req, res) => {
-        try {
-            let create = await db.Product.create({
-                
-            })
-        }
-        catch (error){
             let response = {
                 meta: {
                     status: 500,

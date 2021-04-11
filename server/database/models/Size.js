@@ -28,13 +28,10 @@ module.exports = function (sequelize, dataTypes) {
         Size.hasMany(models.BrandCategorySizeMeassurement, {
             as: 'category_meassurement',
             foreignKey: 'size_id'
-        })
-        Size.belongsToMany(models.Product, {
-            as: 'products',
-            through: 'product_size',
-            foreignKey: 'size_id',
-            otherKey: 'product_id',
-            timestamps: false
+        }),
+        Size.hasMany(models.UserFeedback, {
+            as: 'users_feedbacks',
+            foreignKey: 'size_id'
         })
     }
 

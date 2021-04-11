@@ -8,9 +8,8 @@ router.post('/login', loginValidator, shopsAPIController.login)
 router.post('/create-category', verifyToken, shopsAPIController.createCategoryPost)
 router.get('/create-category', verifyToken, shopsAPIController.createCategoryView)
 router.get('/overview', verifyToken ,shopsAPIController.overview)
-router.get('/products', verifyToken ,shopsAPIController.products)
 router.get('/categories', verifyToken ,shopsAPIController.categories)
-router.get('/categories/:category', verifyToken ,shopsAPIController.category)
+router.get('/categories/:id', verifyToken ,shopsAPIController.category)
 router.get('/surveys', verifyToken , shopsAPIController.surveys)
 
 module.exports = router

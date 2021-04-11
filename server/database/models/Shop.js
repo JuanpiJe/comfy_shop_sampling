@@ -58,18 +58,18 @@ module.exports = function (sequelize, dataTypes) {
     const Shop = sequelize.define(alias, cols, config)
 
     Shop.associate = (models) => {
-        Shop.belongsToMany(models.Product, {
-            as: 'products',
-            through: 'shop_product',
-            foreignKey: 'shop_id',
-            otherKey: 'product_id',
-            timestamps: false
-        })
         Shop.belongsToMany(models.Brand, {
             as: 'brands',
             through: models.ShopBrand,
             foreignKey: 'shop_id',
             otherKey: 'brand_id',
+            timestamps: false
+        }),
+        Shop.belongsToMany(models.BrandCategory, {
+            as: 'brands_categories',
+            through: models.ShopBrandCategory,
+            foreignKey: 'shop_id',
+            otherKey: 'brand_category_id',
             timestamps: false
         }),
         Shop.hasMany(models.Survey, {

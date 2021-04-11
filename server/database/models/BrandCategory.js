@@ -7,6 +7,10 @@ module.exports = function (sequelize, dataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
+        name: {
+            type: dataTypes.STRING(255),
+            allowNull: true,
+        },
         brand_id: {
             type: dataTypes.INTEGER(11),
             allowNull: false,
@@ -69,7 +73,15 @@ module.exports = function (sequelize, dataTypes) {
             as : 'size_meassurement',
             foreignKey : 'brand_category_id'
         })
+        BrandCategory.belongsToMany(models.Shop, {
+            as : 'shops',
+            through : models.ShopBrandCategory,
+            foreignKey : 'brand_category_id',
+            otherKey : 'shop_id',
+            timestamps : false
+        })
     }
+    
 
     return BrandCategory
 }
