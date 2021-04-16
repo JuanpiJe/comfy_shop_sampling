@@ -41,13 +41,7 @@ module.exports = {
                     ]
             })
             let response = {
-                meta: {
-                    status: 200,
-                    url: `/api/surveys/shop_data`
-                },
-                data: {
-                    shopData
-                }
+                shopData
             }
             return res.send(response)
         }

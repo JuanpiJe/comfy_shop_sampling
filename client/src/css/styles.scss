@@ -1,0 +1,14 @@
+.min-vh-100 {
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+  .card:hover {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .07), 0 20px 25px 0 rgba(0, 0, 0, .1);
+    cursor : pointer 
+  }
+  .card{
+    -webkit-transition: box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out
+  }
+
+
+@import '../../node_modules/bootstrap/scss/bootstrap';

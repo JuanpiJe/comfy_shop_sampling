@@ -203,15 +203,25 @@ module.exports = {
     //------------------ Shops POST Requests Controllers ------------------//
     //---------------------------------------------------------------------//
     login: async (req, res) => {
+        let status = 'failed'
         let errors = validationResult(req)
         if (errors.isEmpty()) {
             let shop = await db.Shop.findOne({
                 where: { username: req.body.username }
             })
             let token = jwt.sign({ id: shop.id }, process.env.TOKEN_SECRET);
-            res.header('auth-token', token).send(token)
+            status = 'success'
+            res.header('auth-token', token).send({
+                id : shop.id,
+                username : shop.username,
+                token,
+                status
+            })
         }
-        else return res.status(400).send(errors.mapped())
+        else return res.status(400).send({
+            errors : errors.mapped(),
+            status
+        });
     },
 
     //------------------ Post data format to work with ------------------//

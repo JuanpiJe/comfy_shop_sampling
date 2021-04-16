@@ -10,10 +10,10 @@ module.exports = [
                                                                                             }
                                                                                          })
                                                                                             if (userExist == null){
-                                                                                                    throw new Error ('El usuario es inexistente')
+                                                                                                    throw new Error ('El usuario es inexistente.')
                                                                                                 }
                                                                                             else if (bcrypt.compareSync(req.body.password, userExist.password)==false){
-                                                                                                    throw new Error ('Los datos ingresados no son válidos')
+                                                                                                    throw new Error ('Los datos ingresados no son válidos.')
                                                                                                 }
                                                                                             }),
         check('password').notEmpty().withMessage('Campo requerido')

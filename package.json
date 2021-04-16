@@ -4,12 +4,17 @@
   "description": "",
   "main": "./server/app.js",
   "scripts": {
-    "start": "nodemon ./server/app.js"
+    "client-install": "cd client && npm install",
+    "start": "node ./server/app.js",
+    "server": "nodemon ./server/app.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "concurrently": "^6.0.0",
     "cors": "^2.8.5",
