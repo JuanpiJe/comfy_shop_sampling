@@ -1,89 +1,75 @@
 import React, { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import moduleName from 'module'
+import axios from 'axios'
+import {
+    Link
+} from "react-router-dom";
+
 function Feedback() {
+    const [rating, setRating] = useState({})
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const result = await axios.get('http://localhost:5000/api/users/form')
+    //         setRating(result.data.rating)
+    //     }
+    //     fetchData()
+    // }, [])
+
+    // console.log(rating);
+
+    function popOver(e) {
+        let label = document.getElementsByName(`${e.target.id}-label`)[0]
+        let selectorHelpText = document.getElementsByClassName('selector-help-text')[0]
+        let radioInputs = Array.from(document.getElementsByName('rating-select'))
+        selectorHelpText.innerHTML =''            
+        radioInputs.map((element)=> {
+            element.checked ? document.getElementsByName(`${element.id}-label`)[0].innerHTML = `<span class="mb-2 text-dark tooltip-box position-absolute translate-middle bottom-100 fw-bold">${element.value}</span>` : document.getElementsByName(`${element.id}-label`)[0].innerHTML = ""
+        })
+    }
     return (
         <div className='d-flex flex-column w-100'>
             <h5 className='text-center mb-4'>¿Cómo te ha quedado la Remera Lorem Ipsum?</h5>
             <form className='d-flex flex-column w-100'>
                 <div className='feedback-section'>
-                    <h6 className='mb-1 fw-bold text-center'>Ajuste en pecho</h6>
-                    <small className='mb-0'>Seleccione una opción</small>
-                    <div className='selection-container mb-3'>
+                    <h5 className='mb-5 fw-bold text-center'>Ajuste en cintura</h5>
+                    <h6 className='mb-0 selector-help-text'>Seleccione una opción</h6>
+                    <div className='selection-container mb-3 mx-2'>
                         <div className="btn-group mt-3 mb-0 w-100" role='group'>
-                            <input type="radio" name="option-1-select" id="XS" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XS" className='btn btn-outline-dark py-2'></label>
-                            <input type="radio" name="option-1-select" id="S" className="btn-check" autocomplete='off' />
-                            <label htmlFor="S" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="M" className="btn-check" autocomplete='off' />
-                            <label htmlFor="M" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="L" className="btn-check" autocomplete='off' />
-                            <label htmlFor="L" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="XL" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XL" className='btn btn-outline-dark'></label>
+                            <input type="radio" name="rating-select" id="MS" value='Muy suelto' className="btn-check  " autocomplete='off' onClick={popOver} />
+                            <label htmlFor="MS" name='MS-label' className='btn btn-outline-dark py-2 selector-label'>
+                                
+                            </label>
+                            <input type="radio" name="rating-select" id="PS" value='Un poco suelto' className="btn-check  " autocomplete='off' onClick={popOver} />
+                            <label htmlFor="PS" name='PS-label' className='btn btn-outline-dark selector-label'>
+                            {/* <span class='text-dark tooltip-box position-absolute translate-middle bottom-0 fw-bold'>Un poco ajustado
+                                    <br />
+                                    <FontAwesomeIcon icon={faChevronDown} />
+                                </span> */}
+                            </label>
+                            <input type="radio" name="rating-select" id="P" value='Perfecto' className="btn-check  " autocomplete='off' onClick={popOver} />
+                            <label htmlFor="P" name='P-label' className='btn btn-outline-dark selector-label'></label>
+                            <input type="radio" name="rating-select" id="PA" value='Un poco ajustado' className="btn-check  " autocomplete='off' onClick={popOver} />
+                            <label htmlFor="PA" name='PA-label' className='btn btn-outline-dark selector-label'></label>
+                            <input type="radio" name="rating-select" id="MA" value='Muy ajustado' className="btn-check  " autocomplete='off' onClick={popOver} />
+                            <label htmlFor="MA" name='MA-label' className='btn btn-outline-dark selector-label'></label>
                         </div>
-                        <div className='row mt-0'>
-                            <div className='col text-start'>
-                                <small className='text-muted'>Muy ajustado</small>
-                            </div>
-                            <div className='col text-end'>
+                        <div className='row mt'>
+                            <div className='col text-start px-0'>
                                 <small className='text-muted'>Muy suelto</small>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='feedback-section'>
-                    <h6 className='mb-1 fw-bold text-center'>Ajuste en cintura</h6>
-                    <small className='mb-0'>Seleccione una opción</small>
-                    <div className='selection-container mb-3'>
-                        <div className="btn-group mt-3 mb-0 w-100" role='group'>
-                            <input type="radio" name="option-1-select" id="XS" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XS" className='btn btn-outline-dark py-2'></label>
-                            <input type="radio" name="option-1-select" id="S" className="btn-check" autocomplete='off' />
-                            <label htmlFor="S" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="M" className="btn-check" autocomplete='off' />
-                            <label htmlFor="M" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="L" className="btn-check" autocomplete='off' />
-                            <label htmlFor="L" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="XL" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XL" className='btn btn-outline-dark'></label>
-                        </div>
-                        <div className='row mt-0'>
-                            <div className='col text-start'>
+                            <div className='col text-center px-0'>
+                                <small className='text-muted'>Perfecto</small>
+                            </div>
+                            <div className='col text-end px-0'>
                                 <small className='text-muted'>Muy ajustado</small>
-                            </div>
-                            <div className='col text-end'>
-                                <small className='text-muted'>Muy suelto</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='feedback-section'>
-                    <h6 className='mb-1 fw-bold text-center'>Ajuste en caderas</h6>
-                    <small className='mb-0'>Seleccione una opción</small>
-                    <div className='selection-container mb-3'>
-                        <div className="btn-group mt-3 mb-0 w-100" role='group'>
-                            <input type="radio" name="option-1-select" id="XS" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XS" className='btn btn-outline-dark py-2'></label>
-                            <input type="radio" name="option-1-select" id="S" className="btn-check" autocomplete='off' />
-                            <label htmlFor="S" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="M" className="btn-check" autocomplete='off' />
-                            <label htmlFor="M" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="L" className="btn-check" autocomplete='off' />
-                            <label htmlFor="L" className='btn btn-outline-dark'></label>
-                            <input type="radio" name="option-1-select" id="XL" className="btn-check" autocomplete='off' />
-                            <label htmlFor="XL" className='btn btn-outline-dark'></label>
-                        </div>
-                        <div className='row mt-0'>
-                            <div className='col text-start'>
-                                <small className='text-muted'>Muy ajustado</small>
-                            </div>
-                            <div className='col text-end'>
-                                <small className='text-muted'>Muy suelto</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            <button type="submit" className='btn btn-dark '>Continuar</button>
+            <Link className='btn btn-dark' to='/success'>Continuar</Link>
         </div>
     )
 }

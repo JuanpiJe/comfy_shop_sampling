@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react'
+import {
+    Link
+} from "react-router-dom";
 
 function GenderSelection() {
-    
+
     return (
         <div className='w-100 gender_selection'>
-            <h5 className='text-center'>Seleccione el género</h5>
-            
-            <form action='#' className='d-flex flex-column w-100' id='gender_form'>
+            <h5 className='text-center'>Seleccione el género al que pertenecen los productos.</h5>
+
+            <div className='d-flex flex-column w-100'>
                 <div className="btn-group m-3">
-                   <input type="radio" className="btn-check" name='gender' id='mujer' autoComplete='off' />
-                    <label className="btn btn-outline-dark" htmlFor="mujer">Mujer</label> 
-                    <input type="radio" className="btn-check" name='gender' id='hombre' autoComplete='off' />
-                    <label className="btn btn-outline-dark" htmlFor="hombre">Hombre</label>
+                    <Link to='/category_selection' className="btn btn-outline-dark"  >
+                        <input type="radio" className="btn-check" name='gender' id='mujer' autoComplete='off' />
+                        <label htmlFor="mujer">Mujer</label>
+                    </Link>
+                    <Link to='/category_selection' className="btn btn-outline-dark"  >
+                        <input type="radio" className="btn-check" name='gender' id='hombre' autoComplete='off' />
+                        <label htmlFor="hombre">Hombre</label>
+                    </Link>
+                    <Link to='/category_selection' className="btn btn-outline-dark"  >
+                        <input type="radio" className="btn-check" name='gender' id='hombre' autoComplete='off' />
+                        <label htmlFor="hombre">Unisex</label>
+                    </Link>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

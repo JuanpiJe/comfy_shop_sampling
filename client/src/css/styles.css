@@ -2,6 +2,52 @@
   min-height: calc(var(--vh, 1vh) * 100);
 }
 
+.tooltip-box {
+  width: 200px
+}
+
+.tooltip-box::after {
+  content: '';
+  display: block;
+  border-top: 7px solid #000;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  position: absolute;
+  bottom: -10px;
+  left: calc(50% - 7px);
+}
+
+.page {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
 /*!
  * Bootstrap v5.0.0-beta3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -626,8 +672,8 @@ progress {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) / -2);
-  margin-left: calc(var(--bs-gutter-x) / -2);
+  /* margin-right: calc(var(--bs-gutter-x) / -2);
+  margin-left: calc(var(--bs-gutter-x) / -2); */
 }
 
 .row>* {
@@ -4756,7 +4802,7 @@ form.radio_selector input[type="radio"]:checked+label div {
 
 .card:hover {
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, .07), 0 20px 25px 0 rgba(0, 0, 0, .1);
-  cursor : pointer 
+  cursor: pointer
 }
 
 .card>hr {

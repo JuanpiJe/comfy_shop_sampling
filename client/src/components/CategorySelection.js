@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import {
+    Link
+} from "react-router-dom";
 
 function CategorySelection() {
     return (
@@ -9,22 +12,15 @@ function CategorySelection() {
             </div>
             <div className="match-list list-group w-100 mt-2">
                 {/* AGREGAR ACTIVE CUANDO ES SELECCIONADO */}
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                <button type="button" className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>Remera Polo Ralph Lauren</button>
-                
+                <Link to='/size_selection' className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>
+                Lorem, ipsum dolor.
+                </Link>
+                <Link to='/size_selection' className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>
+                Lorem, ipsum dolor.
+                </Link>
+                <Link to='/size_selection' className='mt-2 mb-2 text-center list-group-item list-group-item-action border'>
+                Lorem, ipsum dolor.
+                </Link>
             </div>
         </div>
 
