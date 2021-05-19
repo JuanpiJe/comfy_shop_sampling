@@ -2,7 +2,7 @@ const router = require('express').Router()
 const surveysAPIController = require('../controllers/surveysAPIController')
 const verifyToken = require('../middlewares/verifyToken')
 
-
+router.get('/form_data',surveysAPIController.formData)
 router.get('/shop_data', verifyToken ,surveysAPIController.shopData)
 router.post('/create_user', verifyToken, surveysAPIController.createUser)
 router.post('/save_basic_data', verifyToken, surveysAPIController.saveUserBasicData)

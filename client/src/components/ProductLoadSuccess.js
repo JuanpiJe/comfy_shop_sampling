@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Link
-} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+
 
 function ProductLoadSuccess() {
+    const auth = useSelector(state => state.authReducer)
+    if (auth === null) {
+        return <Redirect to='/login' />
+    }
     return (
             <div className='w-100 product_load_success_container'>
                 <h5 className='text-center'>Producto cargado con éxito!</h5>

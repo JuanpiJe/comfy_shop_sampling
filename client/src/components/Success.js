@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import {
-    Link
-} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
 
 function SizeSelection() {
+    const auth = useSelector(state => state.authReducer)
+    if (auth === null) {
+        return <Redirect to='/login' />
+    }
     return (
         <div className='w-100 d-flex flex-column align-items-center'>
             <h6 className='mb-4'>Tu encuesta fue registrada con éxito!</h6>

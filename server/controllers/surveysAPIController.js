@@ -1,12 +1,61 @@
 const db = require('../database/models')
 module.exports = {
-    shopData: async (req, res) => {
-        data = {
-            gender: {
-                id: 2,
-                name: null
+    formData: async (req, res) => {
+        try {
+            let preferences = await db.Preference.findAll({
+                attributes: ['id', 'value', 'name']
+            })
+            let bodyParts = await db.BodyPart.findAll({
+                attributes: ['id', 'name', 'zone']
+            })
+            let bodyTypes = await db.BodyShapeType.findAll({
+                attributes: ['id', 'name']
+            })
+            let rating = await db.Rating.findAll({
+                attributes: ['id', 'value', 'name']
+            })
+            let braSize = await db.BraSize.findAll({
+                attributes: ['id', 'value']
+            })
+            let surveys = await db.Survey.findAll({
+                limit : 1,
+                order : [ [ 'createdAt', 'DESC' ]]
+            })
+            let response = {
+                meta: {
+                    status: 200,
+                    url: '/users/form-data'
+                },
+                data: {
+                    metrics: {
+                        height: 'cm',
+                        weight: 'kg',
+                        year: 'años'
+                    },
+                    lastSurveyId : surveys[0].id,
+                    preferences,
+                    bodyParts,
+                    bodyTypes,
+                    rating,
+                    braSize
+                }
             }
+            return res.send(response.data)
         }
+        catch (error) {
+            let response = {
+                meta: {
+                    status: 500,
+                    error
+                },
+                data: {
+                    errorMessage: 'Error de conexión con los servidores, por favor intente más tarde'
+                }
+            }
+            return response
+        }
+    },
+    shopData: async (req, res) => {
         try {
             let shopData = await db.BrandCategory.findAll({
                 attributes: ['id', 'name'],
@@ -20,7 +69,6 @@ module.exports = {
                         },
                         {
                             association: 'gender',
-                            where: { id: data.gender.id }
                         },
                         {
                             association: 'category',
@@ -56,32 +104,34 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response.data)
+            return res.status(500).send(response)
         }
     },
     createUser: async (req, res) => {
         try {
-            data = {
-                email: 'testasa@gmail.com',
-                gender: {
-                    id: 1,
-                    name: null
-                },
-                brand_category: [
-                    {
-                        id: 1,
-                        name: null,
-                        sizes: [1, 2]
-                    },
-                    {
-                        id: 4,
-                        name: null,
-                        sizes: [2, 3]
-                    }
-                ]
-            }
+            data = req.body.data
 
             let success = null
+
+            //VERIFY IF IT´S EMAIL
+            let validateEmail = (email) => {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            if (validateEmail(data.email) === false) {
+                success = false
+                let response = {
+                    meta: {
+                        status: 400,
+                        url: `/api/surveys/create_user`
+                    },
+                    data: {
+                        success,
+                        message: 'Email invalido'
+                    }
+                }
+                return res.status(400).send(response)
+            }
 
             //VERIFY EMAIL NOT EXIST
 
@@ -154,15 +204,21 @@ module.exports = {
 
             if (brandsCategoriesToSubmit.length == 0) {
                 success = false
-                return res.send({
-                    success,
-                    message: 'Ya posee encuestas sobre estos productos, por favor intenta con nuevos productos'
-                })
-
+                let response = {
+                    meta: {
+                        status: 400,
+                        url: `/api/surveys/create_user`
+                    },
+                    data: {
+                        success,
+                        message: 'Ya posee encuestas sobre estos productos, por favor intenta con nuevos productos'
+                    }
+                }
+                return res.status(400).send(response)
             }
             success = true
             let createSurvey = await db.Survey.create({
-                user_id: createUser.id,
+                user_id: locateUser.id,
                 shop_id: req.shop.id
             })
 
@@ -174,8 +230,8 @@ module.exports = {
                 data: {
                     success,
                     user: {
-                        id: createUser.id,
-                        email: createUser.email
+                        id: locateUser.id,
+                        email: locateUser.email
                     },
                     survey_id: createSurvey.id
                 }
@@ -193,29 +249,31 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response.data)
+            return res.status(500).send(response)
         }
     },
     saveUserBasicData: async (req, res) => {
         try {
-            let data = {
-                user: {
-                    id: 1,
-                    email: 'test@gmail.com',
-                    gender_id: 2,
-                    height: 185,
-                    weight: 76,
-                    age: 23,
-                    bra_size_id: null
-                }
-            }
+            // let data = {
+            //     user: {
+            //         id: 1,
+            //         email: 'test@gmail.com',
+            //         gender_id: 2,
+            //         height: 185,
+            //         weight: 76,
+            //         age: 23,
+            //         bra_size_id: null
+            //     }
+            // }
+
+            data = req.body.data
 
             let user = await db.User.findByPk(data.user.id)
             user.height = data.user.height
             user.weight = data.user.weight
             user.age = data.user.age
             user.bra_size_id = data.user.bra_size_id
-            user.bmi = Math.round(data.user.weight / (Math.pow((data.user.height / 100), 2))),
+            user.bmi = data.user.bmi
             await user.save()
             let response = {
                 meta: {
@@ -223,7 +281,7 @@ module.exports = {
                     url: `/api/surveys/save_basic_data`
                 },
                 data: {
-                    success : true
+                    success: true
                 }
             }
             return res.send(response)
@@ -238,38 +296,53 @@ module.exports = {
                     errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
                 }
             }
-            return res.send(response)
+            return res.status(500).send(response)
         }
     },
     saveUserPreferences: async (req, res) => {
+        let data = req.body.data
         try {
-            let data = {
-                user: {
-                    id: 1,
-                    email: null,
-                    gender_id: null,
-                    height: null,
-                    weight: null,
-                    age: null,
-                    bra_size_id: null
-                },
-                fit_preference: {
-                    preference_id: 1,
-                    category_id: 2
+            data = req.body.data
+            // let data = {
+            //     user: {
+            //         id: 1,
+            //         email: null,
+            //         gender_id: null,
+            //         height: null,
+            //         weight: null,
+            //         age: null,
+            //         bra_size_id: null
+            //     },
+            //     fit_preference: {
+            //         preference_id: 1,
+            //         category_id: 2
+            //     }
+            // }
+
+            //FIND ONE -> IF NULL CREATE
+            userPreferences = await db.UserCategoryFitPreference.findOne({
+                where: {
+                    user_id: data.user.id,
+                    category_id: data.fit_preference.category_id
                 }
-            }
-            let saveUserPreferences = await db.UserCategoryFitPreference.create({
-                user_id: data.user.id,
-                preference_id: data.fit_preference.preference_id,
-                category_id: data.fit_preference.category_id
             })
+            if (userPreferences === null) {
+                let saveUserPreferences = await db.UserCategoryFitPreference.create({
+                    user_id: data.user.id,
+                    preference_id: data.fit_preference.preference_id,
+                    category_id: data.fit_preference.category_id
+                })
+            }
+            userPreferences.preference_id = data.fit_preference.preference_id
+            userPreferences.category_id = data.fit_preference.category_id
+            await userPreferences.save()
             let response = {
                 meta: {
                     status: 200,
                     url: `/api/surveys/save_user_preferences`
                 },
                 data: {
-                    success : true
+                    success: true
                 }
             }
             return res.send(response)
@@ -285,7 +358,7 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response.data)
+            return res.status(500).send(response.data)
         }
     },
     saveFeedback: async (req, res) => {
@@ -295,11 +368,11 @@ module.exports = {
                     id: 1,
                     email: 'test@gmail.com'
                 },
-                brand_category_id : 1,
+                brand_category_id: 1,
                 size_id: 1,
                 body_part_id: 2,
                 rating_id: 3,
-                survey_id : 1
+                survey_id: 1
             }
             let saveFeedback = await db.UserFeedback.create({
                 user_id: data.user.id,
@@ -334,7 +407,7 @@ module.exports = {
                 }
             }
             console.log(error);
-            return res.send(response.data)
+            return res.status(500).send(response)
         }
     }
 }

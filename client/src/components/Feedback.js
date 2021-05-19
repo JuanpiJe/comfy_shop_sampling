@@ -3,12 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import moduleName from 'module'
 import axios from 'axios'
-import {
-    Link
-} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
 
 function Feedback() {
-    const [rating, setRating] = useState({})
+    let user = useSelector(state => state.userReducer)
+    let categories = useSelector(state => state.surveyReducer.brand_category)
+    let index = useSelector(state => state.surveyReducer.productRender)
+    const [productRender, setProductRender] = useState(categories[index])
+
     // useEffect(() => {
     //     const fetchData = async () => {
     //         const result = await axios.get('http://localhost:5000/api/users/form')
@@ -16,7 +19,7 @@ function Feedback() {
     //     }
     //     fetchData()
     // }, [])
-
+ 
     // console.log(rating);
 
     function popOver(e) {
@@ -30,7 +33,7 @@ function Feedback() {
     }
     return (
         <div className='d-flex flex-column w-100'>
-            <h5 className='text-center mb-4'>¿Cómo te ha quedado la Remera Lorem Ipsum?</h5>
+            <h5 className='text-center mb-4'>¿Cómo te ha quedado la Remera Lorem Ipsum talle M?</h5>
             <form className='d-flex flex-column w-100'>
                 <div className='feedback-section'>
                     <h5 className='mb-5 fw-bold text-center'>Ajuste en cintura</h5>

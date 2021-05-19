@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, StaticRouter, Switch, useLocation, useHistory } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group"
+import { useSelector, useDispatch } from 'react-redux'
 import Welcome from './components/Welcome'
 import GenderSelection from './components/GenderSelection'
 import CategorySelection from './components/CategorySelection'
@@ -12,9 +13,12 @@ import BasicDataForm from './components/BasicDataForm'
 import CardsSelection from './components/CardsSelection'
 import Feedback from './components/Feedback'
 import Success from './components/Success'
+import { saveLogin } from './actions'
+import { faChessKing } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import {getCookie} from './getCookie'
 
 const routes = [
-  { path: '/login', Component: LoginForm },
   { path: '/welcome', Component: Welcome },
   { path: '/gender_selection', Component: GenderSelection },
   { path: '/category_selection', Component: CategorySelection },
@@ -28,41 +32,60 @@ const routes = [
 ]
 
 function App() {
+  const shopAuth = useSelector(state => state.shopAuth)
+  const dispatch = useDispatch()
+  let history = useHistory()
+  if (getCookie('token') !== undefined) {
+    if (shopAuth.id === undefined) {
+      axios.get('http://localhost:5000/api/shops/overview', {
+        headers: {
+          'auth-token': getCookie('token')
+        }
+      })
+        .then((res) => {
+          dispatch(saveLogin({
+            shopName: res.data.shop.name,
+            shopID: res.data.shop.id
+          }))
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+  }
+  else return (
+    <div className='container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
+      <Router>
+        <Redirect to='/login' />
+        <Route exact path='/login' component={LoginForm} />
+      </Router>
+    </div>
+  )
   return (
     <div className='container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
-      {/* <div style={{ 'max-width': '600px' }} className='d-flex flex-column w-100 align-items-center m-2'> */}
-        <Router>
-          {routes.map(({ path, Component }) => (
-            <Route key={path} exact path={path}>
-              {({ match }) => (
-                <CSSTransition
-                  in={match != null}
-                  timeout={300}
-                  classNames="fade"
-                  unmountOnExit
-                >
-                  <div style={{ 'max-width': '600px' }} className="page d-flex flex-column align-items-center container ">
-                    <Component />
-                  </div>
-                </CSSTransition>
-              )}
-            </Route>
-          ))}
-          {/* <Route path="/login" exact component={LoginForm} />
-          <Route path="/welcome" exact component={Welcome} />
-          <Route path="/gender_selection" exact component={GenderSelection} />
-          <Route path="/category_selection" exact component={CategorySelection} />
-          <Route path="/size_selection" exact component={SizeSelection} />
-          <Route path="/product_load_success" exact component={ProductLoadSuccess} />
-          <Route path="/user_email" exact component={UserEmail} />
-          <Route path="/basic_data" exact component={BasicDataForm} />
-          <Route path="/body_shape_selection" exact component={CardsSelection} />
-          <Route path="/product_feedback" exact component={Feedback} />
-          <Route path="/success" exact component={Success} /> */}
-
-        </Router>
-      </div>
-    // </div >
+      <Router>
+        <Route exact path='/'>
+          <Redirect to='/login' />
+        </Route>
+        <Route exact path='/login' component={LoginForm} />
+        {routes.map(({ path, Component }) => (
+          <Route key={path} exact path={path}>
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit
+              >
+                <div style={{ 'max-width': '600px' }} className="page d-flex flex-column align-items-center container ">
+                  <Component />
+                </div>
+              </CSSTransition>
+            )}
+          </Route>
+        ))}
+      </Router>
+    </div>
   );
 }
 

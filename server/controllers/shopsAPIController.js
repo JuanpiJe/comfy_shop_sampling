@@ -206,20 +206,35 @@ module.exports = {
         let status = 'failed'
         let errors = validationResult(req)
         if (errors.isEmpty()) {
-            let shop = await db.Shop.findOne({
-                where: { username: req.body.username }
-            })
-            let token = jwt.sign({ id: shop.id }, process.env.TOKEN_SECRET);
-            status = 'success'
-            res.header('auth-token', token).send({
-                id : shop.id,
-                username : shop.username,
-                token,
-                status
-            })
+            try {
+                let shop = await db.Shop.findOne({
+                    where: { username: req.body.username }
+                })
+                let token = jwt.sign({ id: shop.id }, process.env.TOKEN_SECRET);
+                status = 'success'
+                res.header('auth-token', token).send({
+                    id: shop.id,
+                    username: shop.username,
+                    token,
+                    status
+                })
+            }
+            catch (error) {
+                let response = {
+                    meta: {
+                        status: 500,
+                        error
+                    },
+                    data: {
+                        errorMessage: 'Error de conexión con el servidor, por favor intente más tarde'
+                    }
+                }
+                console.log(error);
+                return res.send(response.data)
+            }
         }
         else return res.status(400).send({
-            errors : errors.mapped(),
+            errors: errors.mapped(),
             status
         });
     },
@@ -486,7 +501,7 @@ module.exports = {
                     let model = await db.Model.findByPk(data.model.id)
                     let brand_category_name = `${category.name} ${brand.name} ${subcategory.name} ${model.name}`
                     let createBrandCategory = await db.BrandCategory.create({
-                        name : brand_category_name,
+                        name: brand_category_name,
                         brand_id: data.brand.id,
                         category_id: data.category.id,
                         gender_id: data.gender.id,
@@ -554,7 +569,7 @@ module.exports = {
                 data: {
                     success,
                     message: `Las medidas para ${data.brand_category.name} fueron cargadas con éxito!`,
-                    brand_category : data.brand_category
+                    brand_category: data.brand_category
                 }
             }
             res.send({
