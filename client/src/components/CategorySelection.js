@@ -5,6 +5,7 @@ import axios from 'axios'
 import { getCookie } from '../getCookie'
 import { saveProduct } from '../actions';
 import { setProductRender } from '../actions';
+import { setSizeRender } from '../actions';
 
 function CategorySelection() {
     const gender = useSelector(state => state.surveyReducer.gender.name)
@@ -69,6 +70,7 @@ function CategorySelection() {
             preference_id : null
         }))
         dispatch(setProductRender(0))
+        dispatch(setSizeRender(0))
         history.push('/size_selection')
     }
 

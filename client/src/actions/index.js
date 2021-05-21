@@ -33,6 +33,13 @@ export const setProductRender  = (data) => {
     }
 }
 
+export const setSizeRender  = (data) => {
+    return {
+        type : 'SET_SIZE_RENDER',
+        payload : data
+    }
+}
+
 export const saveSize  = (data) => {
     return {
         type : 'SAVE_SIZE',
@@ -68,9 +75,16 @@ export const saveFitPreference  = (data) => {
     }
 }
 
-export const saveFeedback  = (data) => {
+export const saveGeneralRating  = (data) => {
     return {
-        type : 'SAVE_FEEDBACK',
+        type : 'SAVE_GENERAL_RATING',
+        payload : data
+    }
+}
+
+export const saveDatiledFeedback  = (data) => {
+    return {
+        type : 'SAVE_DETAILED_FEEDBACK',
         payload : data
     }
 }

@@ -1,6 +1,7 @@
 const dft = {
     email: null,
-    basic_data: {}
+    basic_data: {},
+    feedbacks : []
 }
 const userReducer = (state = dft, action) => {
     switch (action.type) {
@@ -21,6 +22,17 @@ const userReducer = (state = dft, action) => {
                     bmi: action.payload.bmi
                 }
             }
+            break;
+        case 'SAVE_GENERAL_RATING':
+            const newGeneralRating = action.payload
+            state = {
+                ...state, 
+                feedbacks : [
+                    ...state.feedbacks,
+                    newGeneralRating
+                ]
+            }
+            // state.feedbacks[state.feedbacks.length-1].general_rating_id = newGeneralRating
             break;
         default:
             state = { ...state }

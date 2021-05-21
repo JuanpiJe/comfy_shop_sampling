@@ -52,6 +52,10 @@ module.exports = function (sequelize, dataTypes) {
         UserFeedback.belongsTo(models.BodyPart, {
             as: 'body_part',
             foreignKey: 'body_part_id'
+        }),
+        UserFeedback.belongsTo(models.GeneralRating, {
+            as: 'general_rating',
+            foreignKey: 'general_rating_id'
         })
         UserFeedback.belongsTo(models.Survey, {
             as: 'survey',

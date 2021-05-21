@@ -21,6 +21,7 @@ module.exports = {
                 limit : 1,
                 order : [ [ 'createdAt', 'DESC' ]]
             })
+            let basicRating = await db.GeneralRating.findAll()
             let response = {
                 meta: {
                     status: 200,
@@ -37,7 +38,8 @@ module.exports = {
                     bodyParts,
                     bodyTypes,
                     rating,
-                    braSize
+                    braSize,
+                    basicRating
                 }
             }
             return res.send(response.data)
@@ -380,7 +382,8 @@ module.exports = {
                 brand_category_id: data.brand_category_id,
                 size_id: data.size_id,
                 body_part_id: data.body_part_id,
-                rating_id: data.rating_id
+                rating_id: data.rating_id,
+                general_rating_id : data.general_rating_id
             })
             let success = true
             let response = {

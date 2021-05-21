@@ -11,12 +11,14 @@ import UserEmail from './components/UserEmail'
 import LoginForm from './components/LoginForm'
 import BasicDataForm from './components/BasicDataForm'
 import CardsSelection from './components/CardsSelection'
-import Feedback from './components/Feedback'
+import GeneralFeedback from './components/GeneralFeedback'
+import DetailedFeedback from './components/DetailedFeedback'
 import Success from './components/Success'
 import { saveLogin } from './actions'
 import { faChessKing } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import {getCookie} from './getCookie'
+
 
 const routes = [
   { path: '/welcome', Component: Welcome },
@@ -27,7 +29,8 @@ const routes = [
   { path: '/user_email', Component: UserEmail },
   { path: '/basic_data', Component: BasicDataForm },
   { path: '/body_shape_selection', Component: CardsSelection },
-  { path: '/product_feedback', Component: Feedback },
+  { path: '/product_feedback/general', Component: GeneralFeedback },
+  { path: '/product_feedback/detailed', Component: DetailedFeedback },
   { path: '/success', Component: Success }
 ]
 

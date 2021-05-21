@@ -33,6 +33,13 @@ const surveyReducer = (state = dft, action) => {
                 productRender: newProductRender
             }
             break;
+        case 'SET_SIZE_RENDER':
+            const newSizeRender = action.payload
+            state = {
+                ...state,
+                sizeRender: newSizeRender
+            }
+            break;
         case 'SAVE_SIZE':
             const newSize = action.payload
             state = {

@@ -41,7 +41,7 @@ function UserEmail() {
         <div className='user_email w-100'>
             <h5 className='text-center'>¿Cuál es tu email?</h5>
             <form action="" className='row g-3 align-items center'>
-                <input type="email" name="email" id="email" className="form-control" placeholder='ejemplo@email.com' />
+                <input type="email" name="email" id="email" className="form-control text-center" placeholder='ejemplo@email.com' />
                 {apiErrors && <p className='fs-6 fw-bolder text-danger text-start my-0'>{apiErrors.data.message}</p>}
                 <small className='form-text text-muted justify-content-center'>Nos comunicaremos por este medio en caso de que resultes ganador/a.</small>
                 <button type="submit" className="btn btn-dark mt-2" onClick={handleSubmit}>Continuar</button>

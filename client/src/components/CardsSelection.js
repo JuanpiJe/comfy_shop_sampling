@@ -52,7 +52,7 @@ function CardsSelection() {
                     preference_id : preferenceID,
                     index
                 }))
-                return history.push('/product_feedback')
+                return history.push('/product_feedback/general')
             })
             .catch((error) => {
                 console.log(error)
