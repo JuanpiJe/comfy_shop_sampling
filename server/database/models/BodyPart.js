@@ -17,10 +17,9 @@ module.exports = function (sequelize, dataTypes) {
            allowNull : true,
            defaultValue : null
        },
-       zone : {
-        type : dataTypes.STRING,
-        allowNull : true,
-        defaultValue : null
+       body_zone_id : {
+        type : dataTypes.INTEGER(11),
+        allowNull : false
     }
     }
     let config = {
@@ -37,6 +36,10 @@ module.exports = function (sequelize, dataTypes) {
         BodyPart.hasMany(models.UserFeedback, {
             as : 'feedbacks',
             foreignKey : 'body_part_id'
+        })
+        BodyPart.belongsTo(models.BodyZone, {
+            as : 'body_zone',
+            foreignKey : 'body_zone_id'
         })
     }
 

@@ -57,7 +57,7 @@ function App() {
     }
   }
   else return (
-    <div className='container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
+    <div className='main-container container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
       <Router>
         <Redirect to='/login' />
         <Route exact path='/login' component={LoginForm} />
@@ -65,7 +65,7 @@ function App() {
     </div>
   )
   return (
-    <div className='container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
+    <div className='main-container container d-flex justify-content-center min-vh-100 align-items-center position-relative'>
       <Router>
         <Route exact path='/'>
           <Redirect to='/login' />

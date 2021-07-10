@@ -6,7 +6,7 @@ module.exports = {
                 attributes: ['id', 'value', 'name']
             })
             let bodyParts = await db.BodyPart.findAll({
-                attributes: ['id', 'name', 'zone']
+                attributes: ['id', 'name', 'body_zone_id']
             })
             let bodyTypes = await db.BodyShapeType.findAll({
                 attributes: ['id', 'name']
@@ -22,6 +22,7 @@ module.exports = {
                 order : [ [ 'createdAt', 'DESC' ]]
             })
             let basicRating = await db.GeneralRating.findAll()
+            let feedbackBodyZones = await db.FeedbackBodyZone.findAll()
             let response = {
                 meta: {
                     status: 200,
@@ -39,7 +40,8 @@ module.exports = {
                     bodyTypes,
                     rating,
                     braSize,
-                    basicRating
+                    basicRating,
+                    feedbackBodyZones
                 }
             }
             return res.send(response.data)

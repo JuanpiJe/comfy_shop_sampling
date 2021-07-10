@@ -52,11 +52,11 @@ function GeneralRating() {
             <h5 className='text-center mb-3 fw-bold'>Talle: {sizeRender.label}</h5>
             <h4 className='mb-1 fw-bold text-center'>¿Qué tan {gender === 'Hombre' ? 'satisfecho' : 'satisfecha' } estás con el talle elegido?</h4>
             <div className='d-flex w-100 justify-content-center mb-3'>
-                <div className="btn-group my-3 mx-3 w-100 d-flex flex-column" role='group'>
+                <div className="match-list list-group my-3 mx-3 w-100 d-flex flex-column" role='group'>
                     {basicRating.map(rating => (
                         <>
                             <input type="radio" name='basic_rating' value={rating.label} id={rating.id} className="btn-check" autocomplete='off' onClick={handleClick}/>
-                            <label htmlFor={rating.id} className='btn btn-outline-dark fw-bold text-start'>{rating.name}</label>
+                            <label htmlFor={rating.id} className='mt-2 mb-2 text-center list-group-item list-group-item-action border fw-bold'>{rating.name}</label>
                         </>
                     ))}
                 </div>

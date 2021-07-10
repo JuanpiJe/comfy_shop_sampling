@@ -6,7 +6,7 @@ module.exports = {
                 attributes: ['id', 'value', 'name']
             })
             let bodyParts = await db.BodyPart.findAll({
-                attributes: ['id', 'name', 'zone']
+                attributes: ['id', 'name', 'body_zone_id']
             })
             let bodyTypes = await db.BodyShapeType.findAll({
                 attributes: ['id', 'name']

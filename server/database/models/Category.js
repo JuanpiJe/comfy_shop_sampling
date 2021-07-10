@@ -22,10 +22,9 @@ module.exports = function (sequelize, dataTypes) {
             allowNull: true,
             defaultValue: null
         },
-        zone: {
-            type: dataTypes.STRING,
-            allowNull: true,
-            defaultValue: null
+        body_zone_id: {
+            type: dataTypes.INTEGER(11),
+            allowNull: false,
         }
     }
     let config = {
@@ -57,6 +56,10 @@ module.exports = function (sequelize, dataTypes) {
             foreignKey: 'category_id',
             otherKey: 'gender_id',
             timestamps: false
+        })
+        Category.belongsTo(models.BodyZone, {
+            as : 'body_zone',
+            foreignKey : 'body_zone_id'
         })
     }
 

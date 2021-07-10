@@ -21,19 +21,19 @@ function CategorySelection() {
                     'auth-token': getCookie('token')
                 }
             })
-            .then ((res) => {
-                const productsByGender = res.data.shopData.filter(product =>
-                    product.gender.name === `${gender}`);
-                setProducts(productsByGender.map(product => (
-                    {
-                        name : product.name,
-                        id : product.id,
-                        categoryName : product.category.name_plural,
-                        categoryNameGender : product.category.name_gender,
-                        categoryZone : product.category.zone
-                    })
-                ))
-            })
+                .then((res) => {
+                    const productsByGender = res.data.shopData.filter(product =>
+                        product.gender.name === `${gender}`);
+                    setProducts(productsByGender.map(product => (
+                        {
+                            name: product.name,
+                            id: product.id,
+                            categoryName: product.category.name_plural,
+                            categoryNameGender: product.category.name_gender,
+                            categoryZone: product.category.body_zone_id
+                        })
+                    ))
+                })
         }
         catch (error) {
             console.log(error)
@@ -61,14 +61,14 @@ function CategorySelection() {
         ))
         dispatch(
             saveProduct({
-            id : product[0].id,
-            name : product[0].name,
-            sizes : [],
-            category : product[0].categoryName,
-            categoryNameGender : product[0].categoryNameGender,
-            categoryZone : product[0].categoryZone,
-            preference_id : null
-        }))
+                id: product[0].id,
+                name: product[0].name,
+                sizes: [],
+                category: product[0].categoryName,
+                categoryNameGender: product[0].categoryNameGender,
+                categoryZone: product[0].categoryZone,
+                preference_id: null
+            }))
         dispatch(setProductRender(0))
         dispatch(setSizeRender(0))
         history.push('/size_selection')

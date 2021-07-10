@@ -14,7 +14,7 @@ module.exports = function (sequelize, dataTypes) {
        },
        body_part_id : {
            type : dataTypes.INTEGER(11),
-           allowNUll : false
+           allowNull : false
        }
     }
     let config = {
